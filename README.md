@@ -1,11 +1,9 @@
 ** Flight Checking App -Phase 2 **
 Tasks and Features Implemented
 
-1. Data Structure
-
-- Designed data structure for flights based on CSV dataset.
-- Created flights.json in data/ folder to store sample flight data.
-- Converted CSV dataset to JSON .
+Project Overview
+This project is a Flight Checking API built with **Node.js Express, and MongoDB Atlas**.  
+In Phase 3, the application has been integrated with a real database (MongoDB), using **Mongoose** for models and CRUD operations. Features include searching, sorting, pagination, and input validation.
 
 2. Modular Architecture
    modules/
@@ -16,6 +14,9 @@ Tasks and Features Implemented
    flightRoutes.js
    middlewares/
    flightValidation.js
+   shared/
+   connect-db.js
+   .env
 
 - Each module handles:
   -- models/ => Business logic (CRUD)
@@ -28,21 +29,15 @@ Tasks and Features Implemented
 - 404 Not Found handler: Respond when a route does not exist
 - Error-handling middleware: Logs the error and returns a 500 response
 
-4. Flight Model
+4. Database setup
+   MongoDB Atlas database created for the project
 
-- getAllFlights() => Fetch all records
-- getFlightByCode(flightCode) =>Fetch a single record by flight code
-- addNewFlight(data) => Add a new flight
-- updateFlight(flightCode, data) => Update flight info
-  -deleteFlight(flightCode) => Delete a flight
+- Database name: `FlightCheckingApp`
+- Collection name: `flights`
+- `.env` file contains the MongoDB URI:
 
-5. Flight Routes
-
-- GET /flights => Get all flights
-- GET /flights/:code => Get flight by flight code
-- POST /flights =>Add new flight
-- PUT /flights/:code => Update flight
-- DELETE /flights/:code => Delete flight
+```env
+MONGO_URI='mongodb+srv://n01724490:XVelhmFgQdtMSZiC@n01724490.eeula2f.mongodb.net/?appName=n01724490'
 
 6. Validation Middleware
 
@@ -56,3 +51,4 @@ Tasks and Features Implemented
 - 400 Bad Request → Validation errors
 - 404 Not Found → Flight not found
 - 500 Internal Server Error → Server errors
+```
