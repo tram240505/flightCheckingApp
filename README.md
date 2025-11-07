@@ -39,12 +39,12 @@ In Phase 3, the application has been integrated with a real database (MongoDB), 
 ```env
 MONGO_URI='mongodb+srv://n01724490:XVelhmFgQdtMSZiC@n01724490.eeula2f.mongodb.net/?appName=n01724490'
 
-6. Validation Middleware
+5. Validation Middleware
 
 - used express-validator
 - check required fields and constraints
 
-7. HTTP Response Handling
+6. HTTP Response Handling
 
 - 200 OK → Successful GET/PUT/DELETE
 - 201 Created → Successful POST
