@@ -1,53 +1,20 @@
-const {
-  readFlightsFile,
-  writeIntoFlightsFile,
-} = require("../../../utils/utils.js");
-// GET all flights
-function getAllFlights() {
-  return readFlightsFile();
-}
+const mongoose = require("mongoose");
 
-// GET by flight code
-function getFlightByCode(flightCode) {
-  return readFlightsFile().then((flights) => {
-    return flights.find((f) => f.flight == flightCode);
-  });
-}
+const FlightSchema = new mongoose.Schema(
+  {
+    airline: { type: String, required: true },
+    flight: { type: String, required: true },
+    source_city: { type: String, required: true },
+    departure_time: { type: String, required: true },
+    stops: { type: String, required: true },
+    arrival_time: { type: String, required: true },
+    destination_city: { type: String, required: true },
+    class: { type: String, required: true },
+    duration: { type: Number, required: true },
+    days_left: { type: Number, required: true },
+    price: { type: Number, required: true },
+  },
+  { timestamps: true }
+);
 
-// ADD new flight
-function addNewFlight(newFlight) {
-  return readFlightsFile().then((flights) => {
-    if (!Array.isArray(flights)) flights = [];
-    newFlight.id = flights.length + 1;
-    flights.push(newFlight);
-    return writeIntoFlightsFile(flights).then(() => newFlight);
-  });
-}
-
-// UPDATE flight
-function updateFlight(flightCode, updatedData) {
-  return readFlightsFile().then((flights) => {
-    const index = flights.findIndex((f) => f.flight == flightCode);
-    if (index == -1) return null;
-    flights[index] = { ...flights[index], ...updatedData };
-    return writeIntoFlightsFile(flights).then(() => flights[index]);
-  });
-}
-
-// DELETE flight
-function deleteFlight(flightCode) {
-  return readFlightsFile().then((flights) => {
-    const index = flights.findIndex((f) => f.flight == flightCode);
-    if (index == -1) return null;
-    const deleted = flights.splice(index, 1)[0];
-    return writeIntoFlightsFile(flights).then(() => deleted);
-  });
-}
-
-module.exports = {
-  getAllFlights,
-  getFlightByCode,
-  addNewFlight,
-  updateFlight,
-  deleteFlight,
-};
+module.exports = mongoose.model("Flight", FlightSchema);

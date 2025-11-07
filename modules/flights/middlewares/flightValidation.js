@@ -8,7 +8,6 @@ exports.validateFlight = [
   body("stops")
     .notEmpty()
     .withMessage("Stops is required")
-    .isNumeric()
     .withMessage("Stops must be a number"),
   body("arrival_time").notEmpty().withMessage("Arrival time is required"),
   body("destination_city")

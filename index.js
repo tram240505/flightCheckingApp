@@ -1,11 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const flightRoutes = require("./modules/flights/routes/flightRoutes.js");
+const connectDB = require("./shared/middlewares/connect-db.js");
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Add the connectDB middleware in application-level, before defining routes.
+app.use(connectDB);
 
 // Mount routes
 app.use("/flights", flightRoutes);
