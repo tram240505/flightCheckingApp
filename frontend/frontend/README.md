@@ -1,16 +1,43 @@
-# React + Vite
+# Flight Checking App – Phase 4
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+Flight Checking App allows users to search for flights between cities with options to sort by price, duration, stops, or days left. The app supports autocomplete for city inputs to enhance user experience. This phase focuses solely on **searching flights** and displaying results.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features Implemented in Phase 4
 
-## React Compiler
+1. **Flight Search**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+   - Users can search flights based on:
+     - Source city
+     - Destination city
+   - Supports sorting by:
+     - Price
+     - Duration
+     - Days left
+     - Number of stops
+   - Supports ascending and descending sort order.
 
-## Expanding the ESLint configuration
+2. **Autocomplete for City Input**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+   - As users type in the "From city" or "To city" input fields, suggestions appear.
+   - Suggestions include both source and destination cities available in the database.
+   - Selecting a suggestion populates the input field.
+
+3. **Frontend Display**
+
+   - Flight results display:
+     - Flight name and airline
+     - Departure and arrival times
+     - Stops
+     - Class
+     - Duration
+     - Days left
+     - Price
+   - Sorting options are applied immediately on the frontend.
+
+4. **Backend API**
+   - `GET /flights/cities` – returns list of cities matching the search term for autocomplete.
+   - `GET /flights` – returns flights based on search filters, sorting, and pagination.
+   - `GET /flights/:id` – returns details of a single flight (optional, for future use).
+   - CRUD operations (create, update, delete flights) are not included, as the app focuses on searching and displaying flights only.
