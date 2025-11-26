@@ -8,13 +8,18 @@ exports.validateFlight = [
   body("stops")
     .notEmpty()
     .withMessage("Stops is required")
+    .isNumeric()
     .withMessage("Stops must be a number"),
   body("arrival_time").notEmpty().withMessage("Arrival time is required"),
   body("destination_city")
     .notEmpty()
     .withMessage("Destination city is required"),
   body("class").notEmpty().withMessage("Class is required"),
-  body("duration").notEmpty().withMessage("Duration is required"),
+  body("duration")
+    .isNumeric()
+    .withMessage("Duration must be a number")
+    .notEmpty()
+    .withMessage("Duration is required"),
   body("days_left")
     .notEmpty()
     .withMessage("Days left is required")
