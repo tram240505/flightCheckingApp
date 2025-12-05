@@ -1,5 +1,6 @@
 import { useState, useEffect,useRef } from "react";
 import "./FlightChecking.css"; 
+import { useNavigate } from "react-router-dom";
 
 export default function FlightChecking() {
   const [fromCity, setFromCity] = useState("");
@@ -10,7 +11,9 @@ export default function FlightChecking() {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
-
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   const fromRef = useRef();
   const toRef = useRef();
@@ -61,6 +64,8 @@ export default function FlightChecking() {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+
   
   // Search flights
   const handleSearch = async () => {
@@ -71,7 +76,7 @@ export default function FlightChecking() {
       const data = await res.json();
       let flightData = data.data || [];
 
-      // Sort on frontend
+      
       flightData.sort((a, b) => {
         if (sortBy === "stops") {
           return sortOrder === "asc"
@@ -92,10 +97,62 @@ export default function FlightChecking() {
     setLoading(false);
   };
 
+const handleBooking = (flight) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("You must login before booking!");
+    navigate("/login");
+    return;
+  }
+navigate(`/booking/${flight._id}`);
+};
+
+
+
+  
+
   return (
     <div className="flight-container">
       <h1>Flight Checking</h1>
+      {role === "admin" && (
+  <button
+    onClick={() => navigate("/admin")}
+    style={{
+      background: "purple",
+      color: "white",
+      padding: "8px 14px",
+      borderRadius: 6,
+      marginBottom: 10,
+      cursor: "pointer",
+    }}
+  >
+    Admin Panel
+  </button>
+)}
 
+{token && (
+  <button
+    onClick={() => {
+      localStorage.clear();
+      window.location.href = "/";
+    }}
+    style={{
+      position: "absolute",
+      top: "20px",
+      right: "20px",
+      padding: "8px 14px",
+      background: "red",
+      color: "white",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      fontWeight: "bold"
+    }}
+  >
+    Logout
+  </button>
+)}
       <div className="search-section">
         <div className="autocomplete">
           <input
@@ -158,17 +215,27 @@ export default function FlightChecking() {
       {loading && <p className="loading">Searching...</p>}
       {!loading && flights.length===0 && <p className="no-flights">No flights found</p>}
 
-      <div className="flights-list">
-        {flights.map(f => (
-          <div key={f._id} className="flight-card">
-            <h2>{f.flight} - {f.airline}</h2>
-            <p>{f.source_city} → {f.destination_city}</p>
-            <p>Departure: {f.departure_time} | Arrival: {f.arrival_time}</p>
-            <p>Stops: {stopsToText(stopsToNumber(f.stops))} | Class: {f.class} | Duration: {f.duration} mins</p>
-            <p>Days Left: {f.days_left} | Price: ${f.price}</p>
-          </div>
-        ))}
-      </div>
+   <div className="flights-list">
+  {flights.map(f => (
+    <div key={f._id} className="flight-card">
+      <h2>{f.flight} - {f.airline}</h2>
+      <p>{f.source_city} → {f.destination_city}</p>
+      <p>Departure: {f.departure_time} | Arrival: {f.arrival_time}</p>
+      <p>Stops: {stopsToText(stopsToNumber(f.stops))} | Class: {f.class} | Duration: {f.duration} mins</p>
+      <p>Days Left: {f.days_left} | Price: ${f.price}</p>
+
+   
+      <button 
+        className="book-btn"
+        onClick={() => handleBooking(f)}
+      >
+        Book
+      </button>
+
+    </div>
+  ))}
+</div>
+
     </div>
   );
 }

@@ -123,3 +123,18 @@
     align-items: flex-start;
   }
 }
+.book-btn {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.book-btn:hover {
+  background-color: #005fcc;
+}
