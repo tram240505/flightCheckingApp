@@ -3,25 +3,10 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
-// router.post("/register", async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     let user = await User.findOne({ email });
-//     if (user) return res.status(400).json({ error: "User already exists" });
-
-//     user = new User({ email, role });
-//     await user.setPassword(password);
-//     await user.save();
-//     res.json({ message: "User registered" });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
 router.post("/register", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check duplicate
     const exists = await User.findOne({ email });
     if (exists) {
       return res.status(400).json({ error: "Email already exists" });
@@ -33,7 +18,6 @@ router.post("/register", async (req, res) => {
       role: "user",
     });
 
-    // Hash password
     await newUser.setPassword(password);
 
     await newUser.save();

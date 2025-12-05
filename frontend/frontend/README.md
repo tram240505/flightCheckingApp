@@ -1,43 +1,54 @@
-# Flight Checking App – Phase 4
+# Flight Checking & Booking App
 
-## Overview
+## Phase 5 – CPAN 212 / CPAN 214
 
-Flight Checking App allows users to search for flights between cities with options to sort by price, duration, stops, or days left. The app supports autocomplete for city inputs to enhance user experience. This phase focuses solely on **searching flights** and displaying results.
+✔ User authentication (Register → Login → OTP verification)  
+✔ JWT authorization  
+✔ Role-based access (User vs Admin)  
+✔ Flight search + sorting  
+✔ Flight booking  
+✔ View booked flights  
+✔ Admin panel to add flights
 
-## Features Implemented in Phase 4
+This Phase 5 includes complete CRUD, protected routes, and form validations.
 
-1. **Flight Search**
+---
 
-   - Users can search flights based on:
-     - Source city
-     - Destination city
-   - Supports sorting by:
-     - Price
-     - Duration
-     - Days left
-     - Number of stops
-   - Supports ascending and descending sort order.
+## 1. Features Implemented (Phase 5 Requirements)
 
-2. **Autocomplete for City Input**
+### **User Features**
 
-   - As users type in the "From city" or "To city" input fields, suggestions appear.
-   - Suggestions include both source and destination cities available in the database.
-   - Selecting a suggestion populates the input field.
+- Register new account
+- Login + OTP Verification
+- JWT token stored in frontend
+- Search flights (autocomplete + sorting)
+- Book a flight
+- View “My Bookings” page
 
-3. **Frontend Display**
+### **Admin Features**
 
-   - Flight results display:
-     - Flight name and airline
-     - Departure and arrival times
-     - Stops
-     - Class
-     - Duration
-     - Days left
-     - Price
-   - Sorting options are applied immediately on the frontend.
+- Only admin can access `/admin`
+- Add new flights with validation
+- Error messages for missing fields
+- Admin protected by JWT + role middleware
 
-4. **Backend API**
-   - `GET /flights/cities` – returns list of cities matching the search term for autocomplete.
-   - `GET /flights` – returns flights based on search filters, sorting, and pagination.
-   - `GET /flights/:id` – returns details of a single flight (optional, for future use).
-   - CRUD operations (create, update, delete flights) are not included, as the app focuses on searching and displaying flights only.
+### **Security**
+
+- Password hashing using bcrypt
+- OTP
+- JWT-based authorization
+- Protected routes on both backend + frontend
+
+### **Frontend (React)**
+
+- React Router
+- ProtectedRoute component
+- BookingPage page
+- MyBooking page
+- AdminPanel
+- FlightChecking search UI
+- Login
+- Register
+- VerifyOtp
+
+---
