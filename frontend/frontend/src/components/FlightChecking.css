@@ -106,7 +106,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Loading / no flights */
+
 .loading, .no-flights {
   text-align: center;
   font-size: 1.2em;
