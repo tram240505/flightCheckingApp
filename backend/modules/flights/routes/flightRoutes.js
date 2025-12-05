@@ -2,6 +2,8 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 const Flight = require("../models/flightModel.js");
 const { validateFlight } = require("../middlewares/flightValidation.js");
+const auth = require("../../../shared/middlewares/auth.js");
+const checkRole = require("../../../shared/middlewares/checkRole.js");
 
 const router = express.Router();
 
@@ -27,8 +29,6 @@ router.get("/cities", async (req, res) => {
 // GET all flights (search, sort, pagination)
 router.get("/", async (req, res) => {
   try {
-    await Flight.syncIndexes();
-
     const { source_city, destination_city, sort_by, sort_order, limit, page } =
       req.query;
     const query = {};
@@ -57,6 +57,27 @@ router.get("/", async (req, res) => {
       limit: parseInt(limit) || 10,
       data: flights,
     });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+// Admin
+router.post("/admin/add", auth, checkRole(["admin"]), async (req, res) => {
+  try {
+    const flight = new Flight(req.body);
+    try {
+      await flight.save();
+      res.json({ message: "Flight added successfully", flight });
+    } catch (err) {
+      if (err.name === "ValidationError") {
+        let errors = {};
+        for (let field in err.errors) {
+          errors[field] = err.errors[field].message;
+        }
+        return res.status(400).json({ errors });
+      }
+      res.status(500).json({ error: err.message });
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

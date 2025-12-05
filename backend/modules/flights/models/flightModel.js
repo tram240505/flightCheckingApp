@@ -6,7 +6,7 @@ const FlightSchema = new mongoose.Schema(
     flight: { type: String, required: true },
     source_city: { type: String, required: true },
     departure_time: { type: String, required: true },
-    stops: { type: String, required: true },
+    stops: { type: Number, required: true },
     arrival_time: { type: String, required: true },
     destination_city: { type: String, required: true },
     class: { type: String, required: true },

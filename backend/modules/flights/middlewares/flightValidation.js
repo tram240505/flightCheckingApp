@@ -16,9 +16,9 @@ exports.validateFlight = [
     .withMessage("Destination city is required"),
   body("class").notEmpty().withMessage("Class is required"),
   body("duration")
-    .isNumeric()
-    .withMessage("Duration must be a number")
     .notEmpty()
+    .withMessage("Duration must be a number")
+    .isNumeric()
     .withMessage("Duration is required"),
   body("days_left")
     .notEmpty()

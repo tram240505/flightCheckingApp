@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const flightRoutes = require("./modules/flights/routes/flightRoutes.js");
 const connectDB = require("./shared/middlewares/connect-db.js");
+const authRoutes = require("./modules/flights/routes/authRoutes.js");
+const bookingRoutes = require("./modules/flights/routes/bookingRoutes.js");
 
 const app = express();
 const port = 3000;
@@ -21,6 +23,8 @@ app.use(connectDB);
 
 // Mount routes
 app.use("/flights", flightRoutes);
+app.use("/auth", authRoutes);
+app.use("/bookings", bookingRoutes);
 
 app.get("/", (req, res) => {
   res.send("Flight Checking API is running");
