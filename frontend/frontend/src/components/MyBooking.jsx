@@ -8,7 +8,7 @@ export default function MyBookings() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:3000/bookings/my", {
+    fetch(`${import.meta.env.VITE_API_URL}/bookings/my`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

@@ -8,7 +8,7 @@ export default function VerifyOtp() {
   const [otp, setOtp] = useState("");
 
   const verify = async () => {
-    const res = await fetch("http://localhost:3000/auth/verify-otp", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/verify-otp`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, otp }),

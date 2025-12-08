@@ -41,7 +41,7 @@ export default function FlightChecking() {
   const fetchSuggestions = async (term, setFunc) => {
     if (!term) return setFunc([]);
     try {
-      const res = await fetch(`http://localhost:3000/flights/cities?term=${term}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/flights/cities?term=${term}`);
       const data = await res.json();
       setFunc(data);
     } catch (err) {
@@ -72,7 +72,7 @@ export default function FlightChecking() {
     if (!fromCity.trim() || !toCity.trim()) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/flights?source_city=${fromCity}&destination_city=${toCity}&sort_by=${sortBy}&sort_order=${sortOrder}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/flights?source_city=${fromCity}&destination_city=${toCity}&sort_by=${sortBy}&sort_order=${sortOrder}`);
       const data = await res.json();
       let flightData = data.data || [];
 

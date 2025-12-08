@@ -13,7 +13,7 @@ export default function BookingPage() {
 
   // Fetch flight details when page loads
   useEffect(() => {
-    fetch(`http://localhost:3000/flights/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/flights/${id}`)
       .then(res => res.json())
       .then(data => {
         setFlight(data);
@@ -24,7 +24,7 @@ export default function BookingPage() {
   const handleSubmit = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:3000/bookings", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
