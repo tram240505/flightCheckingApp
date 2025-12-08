@@ -19,8 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Add the connectDB middleware in application-level, before defining routes.
-app.use(connectDB);
-
+connectDB();
 // Mount routes
 app.use("/flights", flightRoutes);
 app.use("/auth", authRoutes);

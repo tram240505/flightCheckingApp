@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
 
-const DB_URL = process.env.DB_URL;
-
-async function connectDB(req, res, next) {
+async function connectDB() {
   try {
-    await mongoose.connect(DB_URL, { dbName: "FlightCheckingApp" });
-    console.log("Database Connected");
-    next();
-  } catch (error) {
-    console.log(`Database connection failed`);
-    console.log(error);
+    await mongoose.connect(process.env.DB_URL, {
+      dbName: "FlightCheckingApp",
+    });
+    console.log("MongoDB Connected");
+  } catch (err) {
+    console.error("DB connection failed", err.message);
+    process.exit(1);
   }
 }
 
